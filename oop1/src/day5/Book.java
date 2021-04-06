@@ -15,6 +15,20 @@ public class Book {
 	public Book() {}
 
 	public Book(int no, String title, String writer, String publisher, int price, boolean isSoldOut,
+			double discountRate, Event event, Gift gift) {
+		super();
+		this.no = no;
+		this.title = title;
+		this.writer = writer;
+		this.publisher = publisher;
+		this.price = price;
+		this.isSoldOut = isSoldOut;
+		this.discountRate = discountRate;
+		this.event = event;
+		this.gift = gift;
+	}
+	
+	public Book(int no, String title, String writer, String publisher, int price, boolean isSoldOut,
 			double discountRate) {
 		super();
 		this.no = no;
@@ -25,7 +39,7 @@ public class Book {
 		this.isSoldOut = isSoldOut;
 		this.discountRate = discountRate;
 	}
-	
+
 	// getter/setter 메소드 정의하기	
 	
 	/*
