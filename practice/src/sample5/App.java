@@ -8,14 +8,20 @@ import java.util.Scanner;
 public class App {
 	
 	public static void printStudentInfo(ArrayList<Student> students) {
-		for(Student student : students) {
-			System.out.println(student.getName()+"\t"
-							   +student.getKor()+"\t"
-							   +student.getEng()+"\t"
-							   +student.getMath()+"\t"
-							   +student.getTotal()+"\t"
-							   +student.getAverage());
+		if(students.isEmpty()) {
+			System.out.println("* 등록된 학생 정보가 존재하지 않습니다.");
+		}else {
+			for (Student student : students) {
+				System.out.println(student.getName()+"\t"
+								   +student.getKor()+"\t"
+								   +student.getEng()+"\t"
+								   +student.getMath()+"\t"
+								   +student.getTotal()+"\t"
+								   +student.getAverage());
+			}
+			
 		}
+		
 	}
 	
 	public static void main(String[] args) {
@@ -108,10 +114,10 @@ public class App {
 				Collections.sort(students, (o1, o2) -> o1.getTotal()-o2.getTotal());
 				Collections.reverse(students);
 				
-				for(Student student : students) {
-					if(student == null) {
-						System.out.println("* 성적 등록된 학생이 존재하지 않습니다.");
-					}else {
+				if(students.isEmpty()) {
+					System.out.println("* 성적 등록된 학생이 존재하지 않습니다.");
+				}else {
+					for (Student student : students) {
 						System.out.println(student.getName()+"\t"
 											+student.getKor()+"\t"
 											+student.getEng()+"\t"
