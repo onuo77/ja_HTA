@@ -12,7 +12,16 @@ public class Order {
 		this.item = item;
 		this.amount = amount;
 	}
+	
+	public int getOrderPrice() {
+		return item.getPrice()*amount;
+	}
 
+	public int getSavedPoint() {
+		return item.getPoint()*amount;
+	}
+	
+	
 	public Product getItem() {
 		return item;
 	}
