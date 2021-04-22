@@ -5,6 +5,28 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Iterator;
+
+/*
+ * 학생 데이터에 대한 CRUD 기능을 제공
+ * 
+ * 파일 데이터 로드 -> ArrayList에 저장
+ * 학생데이터(ArrayList에 저장된)를 파일에 저장
+ * 학생데이터에 대한 CRUD기능을 제공한다
+ * 		- Create
+ * 			새로운 학생정보를 ArrayList에 저장한다.
+ * 				void insertStudent(Student student)
+ * 		- Read
+ * 			ArrayList에 저장된 학생정보를 찾아서 반환한다.
+ * 				ArrayList<Student> getAllStudents()
+ * 				Student getStudentByName(String name)
+ * 		- Update
+ * 			ArrayList에 저장된 학생정보를 변경한다.
+ * 
+ * 		- Delete
+ * 			ArrayList에 저장된 학생정보를 삭제한다.
+ * 				void removeStudentByName(String name)
+ */
 
 public class StudentRepository {
 
@@ -25,21 +47,31 @@ public class StudentRepository {
 			
 			String text = null;
 			while((text=reader.readLine()) != null) {
+				
 				//1. text변수에 저장된 문자열을 ,를 구분자로 자른다. -> String[]이 획득됨
+				//text -> "김유신,100,100,100"
 				String[] values = text.split(",");
+				//values -> {"김유신","100","100","100"}
 				
 				//2. String[] 배열의 0번째부터 3번째까지 값을 가져와서 적절한 변수에 대입한다.
-				String name = values[0];
-				int kor = Integer.parseInt(values[1]);
-				int eng = Integer.parseInt(values[2]);
-				int math = Integer.parseInt(values[3]);
+				String name = values[0];				// name <-- "김유신"
+				int kor = Integer.parseInt(values[1]);	// kor <-- 100 <-- Integer.parseInt("100")
+				int eng = Integer.parseInt(values[2]);	// eng <-- 100 <-- Integer.parseInt("100")
+				int math = Integer.parseInt(values[3]);	// math <-- 100 <-- Integer.parseInt("100")
 				
 				//3. 2번에서 획득한 이름, 국어, 영어, 수학점수를 Student객체를 생성해서 담는다.
 				Student student = new Student(name, kor, eng, math);
+				//Student객체 <-- name : "김유신", kor:100, eng:100, math:100, total:300, average:100
 				
 				//4. 학생성적정보가 들어있는 Student객체를 students 참조변수가 참조하는 
 				//	 ArrayList 객체에 추가한다.
 				students.add(student);
+				//블록내 코드가 한번 실행될 때마다 students가 참조하는 ArrayList객체에 Student객체주소값이 계속 저장된다.
+				//students <-- [Student객체주소값]
+				//students <-- [Student객체주소값, student 객체주소값]
+				//students <-- [Student객체주소값, student 객체주소값, student 객체주소값]
+				//students <-- [Student객체주소값, student 객체주소값, student 객체주소값, student 객체주소값]
+				//students <-- [Student객체주소값, student 객체주소값, student 객체주소값, student 객체주소값, student 객체주소값]
 			}
 			
 		} catch (IOException e) {
@@ -50,19 +82,34 @@ public class StudentRepository {
 	//students가 참조하는 ArrayList객체에 저장된 학생정보를 파일로 저장한다.
 	public void saveData() {
 		try (PrintWriter writer = new PrintWriter("src/day1/students.txt")){
+			
 			for(Student student : students) {
-				StringBuilder sb = new StringBuilder(); //문자열을 쭉 이어붙일 때 사용
+				//Student객체 <-- name : "김유신", kor:100, eng:100, math:100, total:300, average:100
+				
+				StringBuilder sb = new StringBuilder(); //문자열을 쭉 이어붙일 때 사용, 내부저장소의 임시버퍼
+				//sb -> []
 				sb.append(student.getName())
+					//sb -> ["김유신"]
 					.append(",")
+					//sb -> ["김유신", ","]
 					.append(student.getKor())
+					//sb -> ["김유신", ",", "100"]
 					.append(",")
+					//sb -> ["김유신", ",", "100", ","]
 					.append(student.getEng())
+					//sb -> ["김유신", ",", "100", ",", "100"]
 					.append(",")
+					//sb -> ["김유신", ",", "100", ",", "100", ","]
 					.append(student.getMath());
+				//sb -> ["김유신", ",", "100", ",", "100", ",", "100"]
+				
 				//StringBuilder객체의 내부저장소에 추가된 값을 하나의 문자열로 획득한다.
 				String text = sb.toString();
+				//text -> "김유신,100,100,100"
+				
 				//PrintWriter객체의 println()메소드를 사용해서 text 변수에 저장된 문자열을 파일로 내보낸다.
 				writer.println(text);
+				//text에 저장된 학생정보를 파일에 기록한다.
 			}
 		} catch(IOException e) {
 			e.printStackTrace();
@@ -84,11 +131,24 @@ public class StudentRepository {
 	
 	//지정된 이름의 학생정보를 반환한다.
 	public Student getStudentByName(String name) {
+		for(Student student : students) {
+			if(student.getName().equals(name)) { //이름이 일치하는 학생정보를 반환한다.
+				return student;
+			}
+		}
+		//이름이 일치하는 학생정보가 존재하지 않으면 null이 반환된다.
 		return null;
 	}
 	
 	//지정된 이름의 학생정보를 삭제한다.
 	public void removeStudentByName(String name) {
-		
+		Iterator<Student> iter = students.iterator();
+		while(iter.hasNext()) {
+			Student student = iter.next();
+			if(student.getName().equals(name)) {
+				iter.remove();
+				break;
+			}
+		}
 	}
 }
