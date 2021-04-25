@@ -180,7 +180,8 @@ public class BookStoreService {
 		int stock = searchBooks.getStock() - amount;		//-= 안되는이유
 		searchBooks.setStock(stock);
 		int point = (int) ((searchBooks.getPrice()*amount) * 0.01);
-		loginedUser.setPoint(point);
+		loginedUser.setPoint(point + loginedUser.getPoint());
+		
 		int userPoint = loginedUser.getPoint();
 		// 일반 :                 ~    99,999
 		// 로얄 :      100,000    ~   999,999
