@@ -1,0 +1,14 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>요청객체 익히기</title>
+</head>
+<body>
+	<h1>요청객쳬(HttpServletRequest) 연습</h1>
+	
+	<h3>요청객체의 주요메소드 연습</h3>
+</body>
+</html>

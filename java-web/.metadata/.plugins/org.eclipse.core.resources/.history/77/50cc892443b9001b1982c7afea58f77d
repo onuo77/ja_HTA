@@ -1,0 +1,24 @@
+package com.sample.hr.dao;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import com.sample.hr.vo.Department;
+
+/**
+ * DEPARTMENTS 테이블에 대한 CRUD 기능을 제공하는 클래스다.
+ * @author user
+ *
+ */
+public class DepartmentDao {
+
+	/**
+	 * 모든 부서정보를 반환한다.
+	 * @return 부서정보 목록
+	 * @throws SQLException
+	 */
+	public List<Department> getAllDepartments() throws SQLException{
+		
+		return null;
+	}
+}

@@ -1,0 +1,15 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>GET 방식으로 요청 파라미터 전송하기</title>
+</head>
+<body>
+	<h1>GET 방식으로 요청파라미터 보내기</h1>
+	<ul>
+		<li>
+	</ul>
+</body>
+</html>

@@ -1,0 +1,11 @@
+package com.sample.hr.dao;
+
+import java.sql.SQLException;
+
+public class DepartmentDao {
+
+	public List<Department> getAllDepartments() throws SQLException{
+		
+		return null;
+	}
+}

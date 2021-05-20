@@ -1,2 +1,5 @@
 1621325847338	Rename resource 'demo.jsp'
 1621326441339	Rename package 'sample.vo'
+1621472467346	Rename resource 'reqo'
+1621495932726	Move 'dept' to 'hr'
+1621499009766	Rename type 'ConnctionUtil'
