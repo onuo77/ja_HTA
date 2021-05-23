@@ -1,0 +1,41 @@
+<%@page import="com.sample.hr.dao.EmployeeDao"%>
+<%@page import="com.sample.hr.dto.EmployeeDto"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>인사관리 :: 사원관리</title>
+</head>
+<body>
+	<h1>사원 상세 정보</h1>
+	<p>사원의 기본정보를 표시하고, 그 사원의 사원 정보를 표시한다.</p>
+	
+	<%
+		int empId = Integer.parseInt(request.getParameter("empId"));
+		
+		EmployeeDao employeeDao = new EmployeeDao();
+		EmployeeDto dto = employeeDao.getEmployeeDto(empId);
+	%>
+	
+	<h3>사원 기본 정보</h3>
+	<dl>
+		<dt>사원아이디</dt><dd><%=dto.getId() %></dd>
+		<dt>사원이름</dt><dd><%=dto.getFirstName() %> <%=dto.getLastName() %></dd>
+		<dt>이메일</dt><dd><%=dto.getEmail() %></dd>
+		<dt>전화번호</dt><dd><%=dto.getPhoneNumber() %></dd>
+		<dt>입사일</dt><dd><%=dto.getHireDate() %></dd>
+		<dt>직종아이디</dt><dd><%=dto.getJobId() %></dd>
+		<dt>직종명</dt><dd><%=dto.getJobTitle() %></dd>
+		<dt>급여</dt><dd><%=dto.getSalary() %></dd>
+		<dt>커미션</dt><dd><%=dto.getCommissionPct() == 0 ? "없음" : dto.getCommissionPct()%></dd>
+		<dt>매니저아이디</dt><dd><%=dto.getManagerId() == 0 ? "없음" : dto.getManagerId()%></dd>
+		<dt>매니저이름</dt><dd><%=dto.getManagerFullName() == null ? "없음" : dto.getManagerFullName() %></dd>
+		<dt>부서아이디</dt><dd><%=dto.getDepartmentId() == 0 ? "없음" : dto.getDepartmentId() %></dd>
+		<dt>부서명</dt><dd><%=dto.getDepartmentName() == null ? "없음" : dto.getDepartmentName() %></dd>
+	</dl>
+	
+	<p><a href="list.jsp">사원 목록페이지로 되돌아가기</a></p>
+</body>
+</html>

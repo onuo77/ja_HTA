@@ -16,7 +16,5 @@
 		<li><a href="form.jsp">새 부서 등록</a></li>
 		<li><a href="../main.jsp">인사관리 메인페이지로 돌아가기</a></li>
 	</ul>
-	
-	<p><a href="main.jsp">부서 메인페이지로 돌아가기</a></p>
 </body>
 </html>
