@@ -1,0 +1,37 @@
+package review0325;
+
+import java.util.Scanner;
+
+public class review04 {
+	
+	public static void main(String[] args) {
+		//4. while문 (WhileDemo1.java)
+		// while문을 이용해서 무한반복 구현하기
+		/* 
+		   충전금액 설정
+		   사용금액이 남아있는 충전금액보다 크면, 잔액부족을 표시한다.
+		   사용금액이 남아있는 충전금액보다 작거나 같으면 충전금액에서 사용금액만큼 차감하고,
+		   사용금액과 현재 남아있는 충전금액을 출력한다.
+		*/
+		Scanner sc = new Scanner(System.in);
+		//충전금액 설정
+		int chargeMoney = 10000;
+
+		//사용금액이 남아있는 충전금액보다 크면, 잔액부족 표시
+		System.out.println("========================");
+		while(true) {
+			System.out.print("금액을 입력하세요 : ");
+			int spendMoney = sc.nextInt(); 
+			
+			if(chargeMoney < spendMoney) {
+				System.out.println("잔액 부족");
+			}else {
+				chargeMoney -= spendMoney;
+				System.out.println("사용 금액 : " + spendMoney);
+				System.out.println("남은 금액 : " + chargeMoney);
+			}		
+			break;
+		}
+		System.out.println("========================");		
+	}
+}

@@ -1,0 +1,8 @@
+package demo2.app;
+
+public class SimpleUserApp {
+
+	public static void main(String[] args) {
+		
+	}
+}

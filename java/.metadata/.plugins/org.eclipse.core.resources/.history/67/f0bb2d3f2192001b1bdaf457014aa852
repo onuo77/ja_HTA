@@ -1,0 +1,25 @@
+package review0331;
+
+public class UserApp {
+	public static void main(String[] args) {
+	
+		//User1 객체 생성
+		User u1 = new User();
+		//정보값출력메소드 실행
+		u1.userInfo();
+		
+		System.out.println();
+		
+		//User2객체 생성
+		User u2 = new User();
+		//기본생성자에 값 추가 후 정보값출력
+		u2.name = "이순신";
+		u2.id = "Lee";
+		u2.password = "afew2321";
+		u2.userInfo();
+		
+		//User3객체 생성
+		User u3 = new User();
+		//생성자 중복정의 메소드로 매개변수 입력 후 출력
+	}
+}

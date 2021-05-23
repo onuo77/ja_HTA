@@ -1,0 +1,10 @@
+package review0331;
+
+public class MethodSampleApp {
+	
+	//기본자료형 타입의 매개변수를 가지는 메소드 호출하기
+	MethodSample ms = new MethodSample();
+	ms.test(;)
+	
+	//참조자료형 타입의 매개변수를 가지는 메소드 호출하기
+}

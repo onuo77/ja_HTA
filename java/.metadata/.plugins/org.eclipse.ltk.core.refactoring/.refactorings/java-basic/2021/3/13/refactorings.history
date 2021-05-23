@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename type &apos;IfDemo&apos; to &apos;IfDemo1&apos;&#x0D;&#x0A;- Original project: &apos;java-basic&apos;&#x0D;&#x0A;- Original element: &apos;IfDemo&apos;&#x0D;&#x0A;- Renamed element: &apos;IfDemo1&apos;&#x0D;&#x0A;- Update references to refactored element&#x0D;&#x0A;- Update textual occurrences in comments and strings" description="Rename type &apos;IfDemo&apos;" flags="589830" id="org.eclipse.jdt.ui.rename.type" input="/src&lt;{IfDemo.java[IfDemo" matchStrategy="1" name="IfDemo1" qualified="false" references="true" similarDeclarations="false" stamp="1616555752906" textual="false" version="1.0"/>
+</session>

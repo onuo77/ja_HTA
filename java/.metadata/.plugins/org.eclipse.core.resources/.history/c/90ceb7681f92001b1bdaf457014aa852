@@ -1,0 +1,14 @@
+package review0331;
+
+public class User {
+	
+	int no;
+	String name;
+	String id;
+	String password;
+	String email;
+	String tel;
+	int age;
+	String address;
+	boolean isMarried;
+}
