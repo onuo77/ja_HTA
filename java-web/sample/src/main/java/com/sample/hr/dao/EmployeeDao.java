@@ -83,9 +83,9 @@ public class EmployeeDao {
 	public List<Employee> getAllEmployees() throws SQLException{
 		List<Employee> employees = new ArrayList<Employee>();
 		
-		String sql = "select employee_id, first_name, last_name "
+		String sql = "select * "
 				+ "from employees "
-				+ "order by first_name asc";
+				+ "order by employee_id asc";
 		
 		Connection con = ConnectionUtil.getConnection();
 		PreparedStatement pstmt = con.prepareStatement(sql);
@@ -96,6 +96,8 @@ public class EmployeeDao {
 			emp.setId(rs.getInt("employee_id"));
 			emp.setFirstName(rs.getString("first_name"));
 			emp.setLastName(rs.getString("last_name"));
+			emp.setEmail(rs.getString("email"));
+			emp.setPhoneNumber(rs.getString("phone_number"));
 			
 			employees.add(emp);
 		}		
@@ -107,7 +109,7 @@ public class EmployeeDao {
 		return employees;
 	}
 	
-	public EmployeeDto getEmployeeDto(int empId) throws SQLException{
+	public EmployeeDto getEmployeeDtoById(int empId) throws SQLException{
 		String sql = "select e.employee_id, e.first_name, e.last_name, e.email, e.phone_number, e.hire_date, "
 				+ "    e.job_id, j.job_title, e.salary, e.commission_pct, "
 				+ "    m.employee_id as mgr_id, m.first_name||m.last_name as mgr_fullname, "
@@ -148,5 +150,39 @@ public class EmployeeDao {
 		con.close();
 		
 		return dto;
+	}
+	
+	
+	public List<Employee> getEmployeesByManagerId(int employeeId) throws SQLException{
+		List<Employee> employees = new ArrayList<Employee>();
+		
+		String sql = "select e.employee_id as emp_id, e.first_name as emp_first_name, e.last_name as emp_last_name, "
+					+ "e.email as emp_email, e.phone_number as emp_phone_number "
+					+ "from employees m, employees e "
+					+ "where m.employee_id = ? "
+					+ "and m.employee_id = e.manager_id(+) ";
+		
+		Connection con = ConnectionUtil.getConnection();
+		PreparedStatement pstmt = con.prepareStatement(sql);
+		pstmt.setInt(1, employeeId);
+		ResultSet rs = pstmt.executeQuery();
+		
+		while(rs.next()) {
+			Employee emp = new Employee();
+			
+			emp.setId(rs.getInt("emp_id"));
+			emp.setFirstName(rs.getString("emp_first_name"));
+			emp.setLastName(rs.getString("emp_last_name"));
+			emp.setEmail(rs.getString("emp_email"));
+			emp.setPhoneNumber(rs.getString("emp_phone_number"));
+			
+			employees.add(emp);
+		}
+		
+		rs.close();
+		pstmt.close();
+		con.close();
+		
+		return employees;
 	}
 }

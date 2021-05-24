@@ -1,0 +1,60 @@
+<%@page import="java.util.List"%>
+<%@page import="com.sample.hr.vo.Employee"%>
+<%@page import="com.sample.hr.dao.EmployeeDao"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>인사관리 :: 사원관리</title>
+</head>
+<body>
+	<%
+		//전체 사원리스트 조회해서 tbody에 표시하기
+		//1.com.sample.hr.vo 패키지에 Employee.java 클래스를 정의한다.
+		//2.com.sample.hr.dao 패키지에 EmployeeDao.java 클래스를 정의한다.
+		EmployeeDao employeeDao = new EmployeeDao();
+		List<Employee> employees = employeeDao.getAllEmployees();	
+	
+		for(Employee emp : employees){
+	%>
+		<li><a href="detail.jsp?empId=<%=emp.getId()%>"><%=emp.getFirstName() %> <%=emp.getLastName() %></a></li>
+	<%
+		}
+	%>
+	<div class="container">
+		<div class="row">
+			<div class="col-12">
+				<h1>사원 리스트</h1>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-12">
+			<table class="table table-striped table-sm">
+				<thead>
+					<tr>
+						<th>아이디</th>
+						<th>이름</th>
+						<th>이메일</th>
+						<th>전화번호</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>100</td>
+						<td>Steven King</td>
+						<td>King</td>
+						<td>010-1111-2121</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	
+	<p><a href="main.jsp">사원관리 메인페이지로 이동</a></p>
+</body>
+</html>

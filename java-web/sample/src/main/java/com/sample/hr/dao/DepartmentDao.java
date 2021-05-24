@@ -17,7 +17,54 @@ import com.sample.utils.ConnectionUtil;
  *
  */
 public class DepartmentDao {
-
+	/**
+	 * 수정된 부서정보를 전달받아서 부서정보를 변경한다.
+	 * @param dept 수정된 부서정보
+	 * @throws SQLException
+	 */
+	public void updateDepartment(Department dept) throws SQLException{
+		String sql = "update departments "
+					+"set "
+					+"department_name = ?, "
+					+"manager_id = ?, "
+					+"location_id = ? "
+					+"where department_id = ? ";
+		
+		Connection con = ConnectionUtil.getConnection();
+		PreparedStatement pstmt = con.prepareStatement(sql);
+		pstmt.setString(1, dept.getName());
+		pstmt.setInt(2, dept.getManagerId());
+		pstmt.setInt(3, dept.getLocationId());
+		pstmt.setInt(4, dept.getId());
+		pstmt.executeUpdate();
+		
+		pstmt.close();
+		con.close();
+	}
+	
+	/**
+	 * 부서아이디를 전달받아서 해당 부서의 정보를 테이블에서 삭제한다.
+	 * @param departmentId 삭제할 부서 아이디
+	 * @throws SQLException
+	 */
+	public void deleteDepartment(int departmentId) throws SQLException{
+		String sql = "delete from departments "
+					+"where department_id = ? ";
+		
+		Connection con = ConnectionUtil.getConnection();
+		PreparedStatement pstmt = con.prepareStatement(sql);
+		pstmt.setInt(1, departmentId);
+		pstmt.executeUpdate();
+		
+		pstmt.close();
+		con.close();
+	}
+	
+	/**
+	 * 전달받은 부서정보를 테이블에 추가한다.
+	 * @param department 부서정보
+	 * @throws SQLException
+	 */
 	//insert, update,delete 무조건 void!!! / executeUpdate()
 	public void insertDepartment(Department department) throws SQLException{
 		String sql = "insert into departments "
@@ -109,4 +156,33 @@ public class DepartmentDao {
 		
 		return dto;
 	}
+	
+	public Department getDepartmentById(int deptId) throws SQLException{
+		Department department = null;
+		
+		String sql = "select * "
+					+ "from departments "
+					+ "where department_id = ? ";
+		
+		Connection con = ConnectionUtil.getConnection();
+		PreparedStatement pstmt = con.prepareStatement(sql);
+		pstmt.setInt(1, deptId);
+		ResultSet rs = pstmt.executeQuery();
+		
+		if(rs.next()) {
+			department = new Department();
+			department.setId(rs.getInt("department_id"));
+			department.setName(rs.getString("department_name"));
+			department.setManagerId(rs.getInt("manager_id"));
+			department.setLocationId(rs.getInt("location_id"));
+		}
+		
+		rs.close();
+		pstmt.close();
+		con.close();
+		
+		return department;
+	}
+
+	
 }

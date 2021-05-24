@@ -1,0 +1,20 @@
+package com.sample.hr.dto;
+
+import java.util.Date;
+
+public class EmployeeDto {
+
+	private int id;
+	private String firstName;
+	private String lastName;
+	private String email;
+	private String phoneNumber;
+	private Date hireDate;
+	private String jobId;
+	private String jobTitle;
+	private double salary;
+	private double commissionPct;
+	private int managerId;
+	private String managerFirstName;
+	private String managerLastName;
+}

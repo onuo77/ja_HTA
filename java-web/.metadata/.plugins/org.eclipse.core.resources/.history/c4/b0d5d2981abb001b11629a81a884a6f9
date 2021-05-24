@@ -1,0 +1,5 @@
+package com.sample.hr.vo;
+
+public class Job {
+
+}

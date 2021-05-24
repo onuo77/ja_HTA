@@ -1,0 +1,141 @@
+package com.sample.hr.dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.sample.hr.dto.EmployeeDto;
+import com.sample.hr.vo.Employee;
+import com.sample.utils.ConnectionUtil;
+
+/**
+ * EMPLOYEES 테이블에 대한 CRUD를 제공하는 클래스다.
+ * @author user
+ *
+ */
+public class EmployeeDao {
+	//insert
+	public void insertEmployee(Employee employee) throws SQLException{
+		String sql = "insert into employees "
+					+ "(employee_id, first_name, last_name, email, phone_number,hire_date "
+					+ "salary, commission_pct, job_id, manager_id, department_id) "
+					+ "values "
+					+ "(employees_seq.nextval,?,?,?,?,sysdate, "
+					+ "?,?,?,?,? ) ";
+		
+		Connection con = ConnectionUtil.getConnection();
+		PreparedStatement pstmt = con.prepareStatement(sql);
+		ResultSet rs = pstmt.executeUpdate();
+		
+	}
+	
+	/**
+	 * 부서아이디를 전달받아서 해당 부서에 소속된 사원들을 반환한다.
+	 * @param deptId 부서아이디
+	 * @return 사원정보 목록
+	 * @throws SQLException
+	 */
+	public List<Employee> getEmployeeByDepartmentId(int deptId) throws SQLException{
+		List<Employee> employees = new ArrayList<Employee>();
+		
+		String sql = "select * "
+					+"from employees "
+					+"where department_id = ? ";
+		
+		Connection con = ConnectionUtil.getConnection();
+		PreparedStatement pstmt = con.prepareStatement(sql);
+		pstmt.setInt(1, deptId);
+		ResultSet rs = pstmt.executeQuery();
+		while(rs.next()) {
+			Employee emp = new Employee();
+			emp.setId(rs.getInt("employee_id"));
+			emp.setFirstName(rs.getString("first_name"));
+			emp.setLastName(rs.getString("last_name"));
+			emp.setEmail(rs.getString("email"));
+			emp.setPhoneNumber(rs.getString("phone_number"));
+			emp.setHireDate(rs.getDate("hire_date"));
+			emp.setJobId(rs.getString("job_id"));
+			emp.setSalary(rs.getDouble("salary"));
+			emp.setCommissionPct(rs.getDouble("commission_pct"));
+			emp.setManagerId(rs.getInt("manager_id"));
+			emp.setDepartmentId(rs.getInt("department_id"));
+			
+			employees.add(emp);
+		}
+		
+		return employees;
+	}
+	
+	public List<Employee> getAllEmployees() throws SQLException{
+		List<Employee> employees = new ArrayList<Employee>();
+		
+		String sql = "select employee_id, first_name, last_name "
+				+ "from employees "
+				+ "order by first_name asc";
+		
+		Connection con = ConnectionUtil.getConnection();
+		PreparedStatement pstmt = con.prepareStatement(sql);
+		ResultSet rs = pstmt.executeQuery();
+		
+		while(rs.next()) {
+			Employee emp = new Employee();
+			emp.setId(rs.getInt("employee_id"));
+			emp.setFirstName(rs.getString("first_name"));
+			emp.setLastName(rs.getString("last_name"));
+			
+			employees.add(emp);
+		}		
+		
+		rs.close();
+		pstmt.close();
+		con.close();
+		
+		return employees;
+	}
+	
+	public EmployeeDto getEmployeeDto(int empId) throws SQLException{
+		String sql = "select e.employee_id, e.first_name, e.last_name, e.email, e.phone_number, e.hire_date, "
+				+ "    e.job_id, j.job_title, e.salary, e.commission_pct, "
+				+ "    m.employee_id as mgr_id, m.first_name||m.last_name as mgr_fullname, "
+				+ "    e.department_id, d.department_name "
+				+ "from employees e, jobs j, employees m, departments d "
+				+ "where e.employee_id = ? "
+				+ "and e.job_id = j.job_id "
+				+ "and e.manager_id = m.employee_id(+) "
+				+ "and e.department_id = d.department_id(+) ";
+		
+		EmployeeDto dto = null;
+		
+		Connection con = ConnectionUtil.getConnection();
+		PreparedStatement pstmt = con.prepareStatement(sql);
+		pstmt.setInt(1, empId);
+		ResultSet rs = pstmt.executeQuery();
+		
+		if(rs.next()) {
+			dto = new EmployeeDto();
+			dto.setId(rs.getInt("employee_id"));
+			dto.setFirstName(rs.getString("first_name"));
+			dto.setLastName(rs.getString("last_name"));
+			dto.setEmail(rs.getString("email"));
+			dto.setPhoneNumber(rs.getString("phone_number"));
+			dto.setHireDate(rs.getDate("hire_date"));
+			dto.setJobId(rs.getString("job_id"));
+			dto.setJobTitle(rs.getString("job_title"));
+			dto.setSalary(rs.getDouble("salary"));
+			dto.setCommissionPct(rs.getDouble("commission_pct"));
+			dto.setManagerId(rs.getInt("mgr_id"));
+			dto.setManagerFullName(rs.getString("mgr_fullname"));
+			dto.setDepartmentId(rs.getInt("department_id"));
+			dto.setDepartmentName(rs.getString("department_name"));
+		}
+		
+		rs.close();
+		pstmt.close();
+		con.close();
+		
+		return dto;
+	}
+}

@@ -1,0 +1,136 @@
+<%@page import="com.sample.hr.dao.EmployeeDao"%>
+<%@page import="com.sample.hr.dto.EmployeeDto"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">    
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>인사관리 :: 사원관리</title>
+</head>
+<body>
+<%
+	// 사원상세 정보 조회하기
+	/*
+		1. com.sample.hr.dto패키지에 EmployeeDto.java를 정의한다.
+			사원아이디, 이름, 전화번호, 이메일, 직종아이디, 입사일, 급여, 커미션,
+			소속부서아이디, 소속부서명, 매니저 아이디, 매니저이름을 저장하는 필드를 정의하고,
+			getter/setter를 정의한다.
+		2. com.sample.hr.dao.EmployeeDao에 사원기본정보를 반환하는
+			public EmployeeDto getEmployeeDtoById(int employeeId) {
+	
+			}를 정의한다.
+		3. com.sample.hr.dao.employeeDao에 해당 사원의 부하직원목록을 반환하는 
+			public List<Employee> getEmployeesByManagerId(int employeeId) {
+				
+			}를 정의한다.
+		4. emp/detail.jsp에서는 emp/list.jsp에서 전달한 요청파라미터값을 조회한다.
+			emp/detail.jsp?id=100과 같은 형식으로 요청이 온다.
+		5. emp/detail.jsp에서 com.sample.hr.dao.EmployeeDao객체를 생성한다.
+		6. emp/detail.jsp에서 EmployeeDao의 getEmployeeDtoById(사원아이디)를 실행해서
+		   	사원기본정보를 조회한다.
+		7. emp/detail.jsp에서 EmployeeDao의 getEmployeesByManagerId(사원아이디)를 실행해서
+			해당 사원의 부하직원목록을 조회한다.
+		9. 6번과 7번에서 조회된 정보를 사원기본정보 테이블과 부하직원 테이블에 표시한다.
+	*/
+%>
+	<div class="container">
+		<div class="row">
+			<div class="col-12">
+				<h1>사원 상세 정보</h1>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-12">
+				<h3>사원 기본 정보</h3>
+					<%
+						int empId = Integer.parseInt(request.getParameter("empId"));
+					
+						EmployeeDao employeeDao = new EmployeeDao();
+						EmployeeDto dto = employeeDao.getEmployeeDtoById(empId);
+					%>
+				<table class="table table-bordered">
+					<tr>
+						<th>아이디</th><td><%=dto.getId() %></td>
+						<th>이름</th><td><%=dto.getFirstName()%> <%=dto.getLastName()%></td>						
+					</tr>
+					<tr>
+						<th>전화번호</th><td><%=dto.getPhoneNumber() %></td>
+						<th>이메일</th><td><%=dto.getEmail() %></td>
+					</tr>
+					<tr>
+						<th>직종아이디</th><td><%=dto.getJobId() %></td>
+						<th>입사일</th><td><%=dto.getHireDate() %></td>
+					</tr>
+					<tr>
+						<th>급여</th><td><%=dto.getSalary() %></td>
+						<th>커미션</th><td><%=dto.getCommissionPct() == 0 ? "없음" : dto.getCommissionPct()%></td>
+					</tr>
+					<tr>
+						<th>소속부서</th><td>90</td>
+						<th>소속부서명</th><td>Executive</td>
+					</tr>
+				</table>
+			</div>
+			
+			<div class="col-12">
+				<h3>부하 직원 목록</h3>
+				<table class="table table-bordered table-striped table-sm">
+					<thead>
+						<tr>
+							<th>아이디</th>
+							<th>이름</th>
+							<th>이메일</th>
+							<th>전화번호</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td colspan="4" class="text-center">부하직원이 존재하지 않습니다.</td>
+						</tr>
+						<tr>
+							<td>100</td>
+							<td><a href="detail.jsp?id=100">홍길동</a></td>
+							<td>King</td>
+							<td>010-1111-12222</td>
+						</tr>
+						<tr>
+							<td>100</td>
+							<td><a href="detail.jsp?id=100">김유신</a></td>
+							<td>King</td>
+							<td>010-1111-12222</td>
+						</tr>
+						<tr>
+							<td>100</td>
+							<td><a href="detail.jsp?id=100">강감찬</a></td>
+							<td>King</td>
+							<td>010-1111-12222</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<p><a href="list.jsp">사원 목록페이지로 되돌아가기</a></p>
+	</div>
+
+	<dl>
+		<dt>사원아이디</dt><dd><%=dto.getId() %></dd>
+		<dt>사원이름</dt><dd><%=dto.getFirstName() %> <%=dto.getLastName() %></dd>
+		<dt>이메일</dt><dd><%=dto.getEmail() %></dd>
+		<dt>전화번호</dt><dd><%=dto.getPhoneNumber() %></dd>
+		<dt>입사일</dt><dd><%=dto.getHireDate() %></dd>
+		<dt>직종아이디</dt><dd><%=dto.getJobId() %></dd>
+		<dt>직종명</dt><dd><%=dto.getJobTitle() %></dd>
+		<dt>급여</dt><dd><%=dto.getSalary() %></dd>
+		<dt>커미션</dt><dd><%=dto.getCommissionPct() == 0 ? "없음" : dto.getCommissionPct()%></dd>
+		<dt>매니저아이디</dt><dd><%=dto.getManagerId() == 0 ? "없음" : dto.getManagerId()%></dd>
+		<dt>매니저이름</dt><dd><%=dto.getManagerFullName() == null ? "없음" : dto.getManagerFullName() %></dd>
+		<dt>부서아이디</dt><dd><%=dto.getDepartmentId() == 0 ? "없음" : dto.getDepartmentId() %></dd>
+		<dt>부서명</dt><dd><%=dto.getDepartmentName() == null ? "없음" : dto.getDepartmentName() %></dd>
+	</dl>
+	
+
+</body>
+</html>

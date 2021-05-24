@@ -1,0 +1,20 @@
+package com.sample.hr.dao;
+
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.sample.hr.vo.Job;
+
+public class JobDao {
+
+	public List<Job> allJobs() throws SQLException{
+		List<Job> jobs = new ArrayList<Job>();
+		String sql = "select job_id, job_title "
+				+ "from jobs "
+				+ "order by job_id asc ";
+		
+		
+		return null;
+	}
+}
