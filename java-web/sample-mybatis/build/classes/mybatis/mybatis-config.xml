@@ -71,8 +71,9 @@
 		</environment>
 	</environments>
 	
-	<!-- 사용자정의 매퍼파일 등록 -->
+	<!-- 사용자정의 매퍼파일 등록/알파벳순으로 배치하기 -->
 	<mappers>
 		<mapper resource="mybatis/mappers/products.xml"/>
+		<mapper resource="mybatis/mappers/users.xml"/>
 	</mappers>
 </configuration>

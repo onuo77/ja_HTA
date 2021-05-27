@@ -73,11 +73,11 @@
 					</div>
 					<div class="form-group">
 						<label>가격</label>
-						<input type="number" class="form-control" name="price" value="<%=product.getPrice() %>" min="5000" step="1000"/>
+						<input type="number" class="form-control" name="price" value="<%=product.getPrice() %>" min="5000"/>
 					</div>
 					<div class="form-group">
 						<label>할인가격</label>
-						<input type="number" class="form-control" name="discountPrice" value="<%=product.getDiscountPrice() %>" min="5000" step="1000"/>
+						<input type="number" class="form-control" name="discountPrice" value="<%=product.getDiscountPrice() %>" min="5000"/>
 					</div>
 					<div class="form-group">
 						<label>재고수량</label>

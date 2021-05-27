@@ -1,0 +1,15 @@
+<%@page import="org.apache.commons.codec.digest.DigestUtils"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%
+	//registerform.jsp에서 register.jsp로 제출한 폼 입력값을 조회한다.
+	String id = request.getParameter("id");
+	String password = request.getParameter("password");
+	String name = request.getParameter("name");
+	String email = request.getParameter("email");
+	String phone = request.getParameter("phone");
+	
+	//비밀번호를 암호화하기
+	String sha256Password = DigestUtils.sha256Hex(password);
+	System.out.println("암호화된 비밀번호 : " + sha256Password);
+%>

@@ -59,7 +59,7 @@
 	  <update id="updateProduct" parameterType="com.sample.vo.Product">
 	  	update sample_products
 	  	set
-	  		product_name 			= #{name},
+	  		product_name 			= #{name}, <!-- #{}값은 parameterType안의 멤버변수명 -->
 	  		product_maker 			= #{maker},
 	  		product_category 		= #{category},
 	  		product_price 			= #{price},
@@ -84,18 +84,25 @@
 	  			List<Product> products = sqlSession.selectList("getAllProducts");
 	  		}
 	   -->
-	  <select id="getAllProducts" resultType="com.sample.vo.Product">
-	  	 select product_no as no,
-	  	 		product_name as name,
-	  	 		product_maker as maker,
-	  	 		product_category as category, 
-	  	 		product_price as price,
-	  	 		product_discount_price as discountPrice,
-	  	 		product_stock as stock,
-	  	 		product_sold_out as soldOut,
-				product_created_date as createdDate
-	  	 from sample_products
+	  <select id="getProducts" parameterType="map" resultType="com.sample.vo.Product">
+	  	 select product_no 				as no,
+	  	 		product_name 			as name,
+	  	 		product_maker 			as maker,
+	  	 		product_category 		as category, 
+	  	 		product_price 			as price,
+	  	 		product_discount_price 	as discountPrice,
+	  	 		product_stock 			as stock,
+	  	 		product_sold_out 		as soldOut,
+				product_created_date 	as createdDate
+	  	 from (select row_number() over (order by product_no desc) row_no, A.*
+	  	 		from sample_products A) 
+	  	 where row_no between #{beginIndex} and #{endIndex} <!-- #{}값은 parameterType에 map이 있으면 map의 key값 -->
 	  	 order by product_no desc
+	  </select>
+	  
+	  <select id="getRowsCount" resultType="int">
+		select count(*)
+		from sample_products
 	  </select>
 	  
 	  <!-- 

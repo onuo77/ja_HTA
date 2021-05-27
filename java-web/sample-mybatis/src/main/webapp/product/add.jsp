@@ -11,12 +11,15 @@
 		4. ProductDao객체의 insertProduct(새제품정보)를 실행해서 새 상품을 등록한다.
 		5. 브라우저에게 재요청할 URL(list.jsp)을 응답으로 보낸다.
 	*/
+	
+	//form.jsp에서 제출된 요청파라미터값을 조회한다.
 	String category = request.getParameter("category");
 	String name = request.getParameter("name");
 	String maker = request.getParameter("maker");
 	int price = Integer.parseInt(request.getParameter("price"));
-	int discountPrice = (int)(price*0.9);
+	int discountPrice = (int) Math.round(price*0.9);
 	
+	//product객체를 생성해서 요청파라미터값 저장
 	Product product = new Product();
 	product.setName(name);
 	product.setMaker(maker);
@@ -24,9 +27,12 @@
 	product.setPrice(price);
 	product.setDiscountPrice(discountPrice);
 	
+	//SAMPLE_PRODUCTS 테이블에 대한 CRUD 기능이 구현된 ProductDao객체 획득
 	ProductDao pdDao = ProductDao.getInstance();
+	//ProductDao객체의 insertProduct(새상품정보) 실행해서 데이터베이스에 저장
 	pdDao.insertProduct(product);
 	
+	// 브라우저에게 재요청 URL(상품목록을 요청하는 URL, list.jsp)를 응답보낸다.	
 	response.sendRedirect("list.jsp");
 	
 %>

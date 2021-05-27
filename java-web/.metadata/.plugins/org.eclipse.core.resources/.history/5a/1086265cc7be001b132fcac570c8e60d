@@ -1,0 +1,12 @@
+<%@page import="com.sample.dao.UserDao"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%
+	//loginform.jsp에서 login.jsp로 제출된 요청파라미터값 조회하기
+	String id = request.getParameter("id");
+	String password = request.getParameter("password");
+	
+	//SAMPLE_USERS 테이블에 대한 CRUD기능을 제공하는 UserDao객체 획득하기
+	UserDao userDao = UserDao.getInstance();
+	
+%>

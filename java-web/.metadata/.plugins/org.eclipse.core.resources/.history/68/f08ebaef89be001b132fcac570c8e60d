@@ -1,0 +1,6 @@
+package com.sample.util;
+
+public class CommonUtils {
+
+	private static String DATE_FORMAT_PATTERN
+}

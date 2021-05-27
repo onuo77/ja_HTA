@@ -1,0 +1,18 @@
+package com.sample.dao;
+
+import org.apache.ibatis.session.SqlSessionFactory;
+
+import com.sample.util.MybatisUtils;
+
+public class UserDao {
+
+	private static UserDao instance = new UserDao();
+	private UserDao() {
+		this.sqlSessionFactory = MybatisUtils.getSqlSessionFactory();
+	}
+	public static UserDao getInstance() {
+		return instance;
+	}
+	
+	private SqlSessionFactory sqlSessionFactory;
+}
