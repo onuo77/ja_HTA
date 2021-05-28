@@ -53,6 +53,7 @@
 				상품 목록
 				<a href="form.jsp" class="btn btn-primary float-right">상품추가</a>
 			</h3>
+			<!-- 
 			<div>
             <dl>
                <dt>요청파라미터</dt><dd><%=request.getParameter("page") %></dd>
@@ -62,7 +63,8 @@
                <dt>전체 데이터 갯수</dt><dd><%=totalRows %></dd>
                <dt>전체 페이지 갯수</dt><dd><%=totalPages %></dd>
             </dl>
-         </div>
+         	</div>
+         	 -->
 		</div>
 	</div>
 	<div class="row mb-3">
@@ -72,11 +74,11 @@
 					<table class="table">
 						<colgroup>
 							<col width="10%" />
-							<col width="35%" />
+							<col width="*" />
 							<col width="15%" />
+							<col width="13%" />
 							<col width="15%" />
-							<col width="15%" />
-							<col width="10%" />
+							<col width="13%" />
 						</colgroup>
 						<thead>
 							<tr>
@@ -85,7 +87,7 @@
 								<th>제조회사</th>
 								<th class="text-right">가격</th>
 								<th class="text-right">할인가격</th>
-								<th>재고</th>
+								<th></th>
 							</tr>
 						</thead>
 						<tbody>
@@ -106,7 +108,9 @@
 								<td><%=product.getMaker() %></td>
 								<td class="text-right"><del><%=CommonUtils.numberToString(product.getPrice()) %> 원</del></td>
 								<td class="text-right"><strong class="text-danger"><%=CommonUtils.numberToString(product.getDiscountPrice()) %> 원</strong></td>
-								<td><%=product.getStock() %> 개</td>
+								<td>
+									<a href="../cart/add.jsp?no=<%=product.getNo() %>" class="btn btn-outline-primary btn-sm">장바구니 담기</a>
+								</td>
 							</tr>
 						<%
 								}

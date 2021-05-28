@@ -1,0 +1,16 @@
+<%@page import="com.sample.vo.User"%>
+<%@page import="com.sample.util.CommonUtils"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%
+	
+	//요청 파라미터에서 상품번호 조회
+	int productNo = CommonUtils.stringToInt(request.getParameter("no"));
+	
+	//클라이언트 전용의 세션객체에 저장된 사용자정보 조회
+	User sessionSavedUser = (User) session.getAttribute("LOGINED_USER_INFO");
+	//조회된 사용자정보에서 사용자 아이디 조회
+	String userId = sessionSavedUser.getId();
+%>
+<p>상품번호 : <%=productNo %></p>
+<p>사용자 아이디 : <%=userId %> </p>

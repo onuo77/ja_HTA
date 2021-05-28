@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-	<title>Bootstrap 4 Example</title>
+	<title>상품몰</title>
  	<meta charset="utf-8">
   	<meta name="viewport" content="width=device-width, initial-scale=1">
   	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -14,6 +14,8 @@
 <div class="container">
 <%
 	String navItem = "register";
+
+	String failMessage = request.getParameter("fail");
 %>
 	<header>
 		<%@ include file="../common/header.jsp" %>
@@ -25,6 +27,29 @@
 			</div>
 		</div>
 		<div class="row">
+		<%
+			if("blank".equals(failMessage)){
+		%>
+			<div class="col-12">
+				<!-- <p>에러 메세지 : <%=failMessage %></p> -->
+				<div class="alert alert-danger">
+					<strong>입력값 누락</strong> 누락된 입력값이 존재합니다.
+				</div>
+			</div>
+		<%
+			}
+		%>	
+		<%
+			if("id".equals(failMessage)){
+		%>		
+			<div class="col-12">				
+				<div class="alert alert-danger">
+					<strong>아이디 중복</strong> 이미 사용중인 아이디 입니다.
+				</div>
+			</div>
+		<%
+			}
+		%>				
 			<div class="col-12">
 				<form method="post" action="register.jsp" class="border p-3 bg-light">
 					<div class="form-group">

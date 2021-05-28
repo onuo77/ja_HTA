@@ -14,6 +14,15 @@
 <div class="container">
 <%
 	String navItem = "login";
+	
+	//로그인 실패 혹은 로그인되지 않은 사용자에 대한 서비스 거부시 요청되는 URL
+	//user/loginform.jsp?fail=invalid
+	//user/loginform.jsp?fail=inactive
+	//user/loginform.jsp?fail=blank
+	//user/loginform.jsp?fail=deny&job=주문
+	//user/loginform.jsp?fail=deny&job=장바구니담기
+	String failMessage = request.getParameter("fail");
+	String job = request.getParameter("job");
 %>
 	<header>
 		<%@ include file="../common/header.jsp" %>
@@ -25,6 +34,41 @@
 			</div>
 		</div>
 		<div class="row">
+		<%
+			if ("blank".equals(failMessage)){
+		%>
+			<div class="col-6 offset-3">
+				<div class="alert alert-danger">
+					<strong>입력값 누락</strong> 아이디 혹은 비밀번호가 누락되었습니다.
+				</div>
+			</div>
+		<%
+			} else if("inactive".equals(failMessage)){
+		%>	
+			<div class="col-6 offset-3">
+				<div class="alert alert-danger">
+					<strong>탈퇴한 사용자</strong> 이미 탈퇴처리된 사용자입니다.
+				</div>
+			</div>
+		<%
+			} else if("invalid".equals(failMessage)){
+		%>	
+			<div class="col-6 offset-3">
+				<div class="alert alert-danger">
+					<strong>로그인 실패</strong> 아이디 혹은 비밀번호가 일치하지 않습니다.
+				</div>
+			</div>
+		<%
+			}else if("deny".equals(failMessage)){
+		%>
+			<div class="col-6 offset-3">
+				<div class="alert alert-danger">
+					<strong>서비스 거부 [<%=job %>]</strong> 로그인 된 사용자만 이용가능한 서비스입니다.
+				</div>
+			</div>			
+		<%		
+			}
+		%>			
 			<div class="col-6 offset-3">
 				<form method="post" action="login.jsp" class="border p-3 bg-light">
 					<div class="form-group">
