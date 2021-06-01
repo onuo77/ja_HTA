@@ -34,4 +34,5 @@
     <fullyQualifiedTypeName name="java.util.List"/>
     <fullyQualifiedTypeName name="com.sample.dao.BoardDao"/>
     <fullyQualifiedTypeName name="com.sample.util.MybatisUtils"/>
+    <fullyQualifiedTypeName name="java.util.Map"/>
 </qualifiedTypeNameHistroy>

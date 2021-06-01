@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="boards">
+	
+	<delete id="deleteBoard" parameterType="int">
+		delete from sample_boards
+		where board_no = #{value}
+	</delete>
+	
+	<insert id="insertBoard" parameterType="com.sample.vo.Board">
+		insert into sample_boards
+		(board_no, board_title, board_content, user_id)
+		values
+		(board_seq.nextval, #{title}, #{content}, #{userId})	
+	</insert>
+	
+	<update id="updateBoard" parameterType="com.sample.vo.Board">
+		update sample_boards
+		set board_title = #{title},
+			board_content = #{content},
+			board_updated_date = #{updatedDate},
+			board_deleted_date = #{deletedDate},
+			board_deleted = #{deleted};
+			board_view_count = #{viewCount}
+		where board_no = #{no}
+	</update>
+
+	<select id="getTotalRowsCount" resultType="int">
+		select count(*)
+		from sample_boards
+		where board_delete = 'Y'
+	</select>
+	
+	<select id="getBoardListByDeleted" parameterType="string" resultType="com.sample.vo.Board">
+		select board_no as no, 
+				board_title as title, 
+				board_content as content, 
+				board_view_count as viewCount, 
+				board_deleted as deleted, 
+				user_id as userId, 
+				board_created_date as createdDate, 
+				board_updated_date as updatedDate, 
+				board_deleted_date as deletedDate
+		from sample_boards
+		where board_deleted = 'N'
+		order by board_no desc
+	</select>
+	
+	<select id="getBoardByNo" parameterType="int" resultType="com.sample.vo.Board">
+		select board_no as no, 
+				board_title as title, 
+				board_content as content, 
+				board_view_count as viewCount, 
+				board_deleted as deleted, 
+				user_id as userId, 
+				board_created_date as createdDate, 
+				board_updated_date as updatedDate, 
+				board_deleted_date as deletedDate
+		from sample_boards
+		where board_no = #{value}	
+	</select>
+</mapper>

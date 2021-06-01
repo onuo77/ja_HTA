@@ -1,3 +1,6 @@
+<%@page import="java.util.HashMap"%>
+<%@page import="java.util.Map"%>
+<%@page import="com.sample.util.CommonUtils"%>
 <%@page import="com.sample.vo.Board"%>
 <%@page import="java.util.List"%>
 <%@page import="com.sample.dao.BoardDao"%>
@@ -17,10 +20,21 @@
 <div class="container">
 <%
 	String navItem = "board";
+	int pageNo = CommonUtils.stringToInt(request.getParameter("page"),1);
+	final int ROWS = 5;
 	
-	BoardDao boardDao = BoardDao.getInstance();
-	Board board = new Board();
-	List<Board> boards = boardDao.getBoardListByDeleted(board.getDeleted());
+	int beginIndex = (pageNo-1)*ROWS + 1;
+	int endIndex = pageNo*ROWS;
+	
+	Map<String, Object> condition = new HashMap<>();
+	condition.put("beginIndex", beginIndex);
+	condition.put("endIndex", endIndex);
+
+	BoardDao boardDao = BoardDao.getInstance();	
+	List<Board> boards = boardDao.getAllBoardList(condition);
+	
+	int totalRows = boardDao.getTotalRowsCount();
+	int totalPages = (int)Math.ceil((double)totalRows/ROWS);
 %>
 	<header>
 		<%@ include file="../common/header.jsp" %>
@@ -63,17 +77,19 @@
 									<td colspan="5" class="text-center">게시글이 존재하지 않습니다.</td>
 								</tr>
 							<%
-								}
-								for(Board item : boards){
+								}else{
+									int loop = 1;
+									for(Board item : boards){
 							%>
 								<tr>
-									<td><%=item.getNo() %></td>
-									<td><a href="detail.jsp?no=<%=item.getNo() %>&page=1">게시글 연습2</a></td>
+									<td><%=(pageNo-1)*ROWS + loop++ %></td>
+									<td><a href="hit.jsp?no=<%=item.getNo() %>&page=<%=pageNo %>"><%=item.getTitle() %></a></td>
 									<td><%=item.getUserId() %></td>
 									<td><%=item.getViewCount() %></td>
-									<td><%=item.getCreatedDate()%></td>
+									<td><%=CommonUtils.dateToString(item.getCreatedDate())%></td>
 								</tr>
 							<%
+									}
 								}
 							%>
 							</tbody>
@@ -82,13 +98,15 @@
 					<div class="card-body">
 						<nav>
 	  						<ul class="pagination justify-content-center">
-	    						<li class="page-item "><a class="page-link" href="list.jsp?page=">이전</a></li>
-	    						<li class="page-item "><a class="page-link" href="list.jsp?page=1">1</a></li>
-	    						<li class="page-item active"><a class="page-link" href="list.jsp?page=2">2</a></li>
-	    						<li class="page-item "><a class="page-link" href="list.jsp?page=3">3</a></li>
-	    						<li class="page-item "><a class="page-link" href="list.jsp?page=4">4</a></li>
-	    						<li class="page-item "><a class="page-link" href="list.jsp?page=5">5</a></li>
-	    						<li class="page-item"><a class="page-link" href="list.jsp?page=">다음</a></li>
+	    						<li class="page-item <%=pageNo > 1 ? "" : "disabled" %>"><a class="page-link" href="list.jsp?page=<%=pageNo-1 %>">이전</a></li>
+								<%
+									for(int num=1; num<=totalPages; num++){
+								%>
+	    						<li class="page-item <%=num==pageNo ? "active" : "" %>"><a class="page-link" href="list.jsp?page=<%=num%>"><%=num%></a></li>
+								<%
+									}
+								%>
+	    						<li class="page-item <%=pageNo < totalPages ? "" : "disabled" %>"><a class="page-link" href="list.jsp?page=<%=pageNo+1 %>">다음</a></li>
 	  						</ul>
 						</nav>
 					</div>

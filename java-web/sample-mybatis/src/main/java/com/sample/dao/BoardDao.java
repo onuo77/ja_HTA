@@ -1,6 +1,7 @@
 package com.sample.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -38,9 +39,9 @@ public class BoardDao {
 		session.close();
 	}
 	
-	public List<Board> getBoardListByDeleted(String deleted){
+	public List<Board> getAllBoardList(Map<String, Object> condition){
 		SqlSession session = sqlSessionFactory.openSession();
-		List<Board> boards = session.selectList("getBoardListByDeleted",deleted);
+		List<Board> boards = session.selectList("getAllBoardList",condition);
 		session.close();	
 		return boards;
 	}
@@ -50,5 +51,12 @@ public class BoardDao {
 		Board board = session.selectOne("getBoardByNo",no);
 		session.close();	
 		return board;
+	}
+	
+	public int getTotalRowsCount() {
+		SqlSession session = sqlSessionFactory.openSession();
+		int totalRowsCount = session.selectOne("getTotalRowsCount");
+		session.close();
+		return totalRowsCount;
 	}
 }

@@ -1,0 +1,62 @@
+package com.sample.dao;
+
+import java.util.List;
+import java.util.Map;
+
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+
+import com.sample.util.MybatisUtils;
+import com.sample.vo.Board;
+
+public class BoardDao {
+	
+	private SqlSessionFactory sqlSessionFactory;
+	
+	private static BoardDao instance = new BoardDao();
+	private BoardDao() {
+		this.sqlSessionFactory = MybatisUtils.getSqlSessionFactory();
+	}
+	public static BoardDao getInstance() {
+		return instance;
+	}
+	
+	public void deleteBoard(int no) {
+		SqlSession session = sqlSessionFactory.openSession(true);
+		session.delete("deleteBoard", no);
+		session.close();
+	}
+	
+	public void insertBoard(Board board) {
+		SqlSession session = sqlSessionFactory.openSession(true);
+		session.insert("insertBoard", board);
+		session.close();
+	}
+	
+	public void updateBoard(Board board) {
+		SqlSession session = sqlSessionFactory.openSession(true);
+		session.update("updateBoard", board);
+		session.close();
+	}
+	
+	public List<Board> getAllBoardList(Map<String, Object> map){
+		SqlSession session = sqlSessionFactory.openSession();
+		List<Board> boards = session.selectList("getAllBoardList",condition);
+		session.close();	
+		return boards;
+	}
+	
+	public Board getBoardByNo(int no){
+		SqlSession session = sqlSessionFactory.openSession();
+		Board board = session.selectOne("getBoardByNo",no);
+		session.close();	
+		return board;
+	}
+	
+	public int getTotalRowsCount() {
+		SqlSession session = sqlSessionFactory.openSession();
+		int totalRowsCount = session.selectOne("getTotalRowsCount");
+		session.close();
+		return totalRowsCount;
+	}
+}

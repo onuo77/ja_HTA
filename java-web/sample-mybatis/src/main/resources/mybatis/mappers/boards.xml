@@ -12,24 +12,27 @@
 		insert into sample_boards
 		(board_no, board_title, board_content, user_id)
 		values
-		(board_no.seq.nextval, #{title}, #{content}, #{userId})	
+		(board_seq.nextval, #{title}, #{content}, #{userId})	
 	</insert>
 	
 	<update id="updateBoard" parameterType="com.sample.vo.Board">
 		update sample_boards
 		set board_title = #{title},
 			board_content = #{content},
-			board_updated_date = #{updatedDate}
-		where board_no = #{boardNo}
+			board_updated_date = #{updatedDate},
+			board_deleted_date = #{deletedDate},
+			board_deleted = #{deleted},
+			board_view_count = #{viewCount}
+		where board_no = #{no}
 	</update>
-	
+
 	<select id="getTotalRowsCount" resultType="int">
 		select count(*)
 		from sample_boards
-		where board_delete = 'Y'
+		where board_deleted = 'N'
 	</select>
 	
-	<select id="getBoardListByDeleted" parameterType="string" resultType="com.sample.vo.Board">
+	<select id="getAllBoardList" parameterType="map" resultType="com.sample.vo.Board">
 		select board_no as no, 
 				board_title as title, 
 				board_content as content, 
@@ -39,9 +42,10 @@
 				board_created_date as createdDate, 
 				board_updated_date as updatedDate, 
 				board_deleted_date as deletedDate
-		from sample_boards
-		where board_deleted = 'N'
-		order by board_no desc
+		from (select row_number() over (order by A.board_no desc) rn, A.*
+		      from sample_boards A
+		      where A.board_deleted = 'N')
+		where rn between #{beginIndex} and #{endIndex}
 	</select>
 	
 	<select id="getBoardByNo" parameterType="int" resultType="com.sample.vo.Board">

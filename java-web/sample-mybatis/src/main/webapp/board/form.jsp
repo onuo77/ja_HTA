@@ -14,6 +14,8 @@
 <div class="container">
 <%
 	String navItem = "board";
+	
+	String fail = request.getParameter("fail");
 %>
 	<header>
 		<%@ include file="../common/header.jsp" %>
@@ -24,6 +26,19 @@
 				<h3 class="border p-3 bg-light">새 게시글 등록폼</h3>
 			</div>
 		</div>
+				<%
+					if("blank".equals(fail)){
+				%>
+					<div class="row mb-1">
+						<div class="col-12">
+							<div class="alert alert-danger">
+								<strong>입력값 누락</strong> 리뷰내용이 누락되었습니다.
+							</div>
+						</div>			
+					</div>
+				<%
+					}
+				%>
 		<div class="row">
 			<div class="col-12">
 				<form method="post" action="add.jsp" class="border p-3 bg-light">
