@@ -1,4 +1,4 @@
 #Tomcat publish data
-#Wed Jun 02 00:55:29 KST 2021
-org.eclipse.jst.jee.server\:sample=C\:\\Program Files\\Apache Software Foundation\\Tomcat 10.0\\wtpwebapps\\sample
+#Wed Jun 02 17:19:58 KST 2021
+org.eclipse.jst.jee.server\:sample-servlet=C\:\\Program Files\\Apache Software Foundation\\Tomcat 10.0\\wtpwebapps\\sample-servlet
 org.eclipse.jst.jee.server\:sample-mybatis=C\:\\Program Files\\Apache Software Foundation\\Tomcat 10.0\\wtpwebapps\\sample-mybatis
