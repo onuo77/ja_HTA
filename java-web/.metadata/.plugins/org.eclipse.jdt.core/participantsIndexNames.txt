@@ -17,6 +17,8 @@ C:\workspace\donghui\java-web\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsea
 \sample-servlet\src\main\java
 C:\workspace\donghui\java-web\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\68421511.index
 \sample-mybatis\src\main\java
+C:\workspace\donghui\java-web\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\3158809739.index
+\sample-servlet\src\main\java
 C:\workspace\donghui\java-web\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\973208245.index
 \sample-mybatis\src\main\java
 C:\workspace\donghui\java-web\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\4114332119.index
@@ -27,5 +29,7 @@ C:\workspace\donghui\java-web\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsea
 \sample\src\main\java
 C:\workspace\donghui\java-web\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\2171577835.index
 \sample-mybatis\src\main\java
+C:\workspace\donghui\java-web\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\3289783061.index
+\sample-servlet\src\main\java
 C:\workspace\donghui\java-web\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\730271931.index
 \sample\src\main\java

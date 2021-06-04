@@ -1,3 +1,3 @@
 #Tomcat publish data
-#Thu Jun 03 17:02:49 KST 2021
-org.eclipse.jst.jee.server\:sample-mybatis=C\:\\Program Files\\Apache Software Foundation\\Tomcat 10.0\\wtpwebapps\\sample-mybatis
+#Fri Jun 04 16:53:11 KST 2021
+org.eclipse.jst.jee.server\:sample-servlet=C\:\\Program Files\\Apache Software Foundation\\Tomcat 10.0\\wtpwebapps\\sample-servlet
