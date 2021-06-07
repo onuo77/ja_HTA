@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="professors">
+	
+	<insert id="insertProfessor" parameterType="com.sample.school.vo.professor">
+		insert into sample_school_professors
+		(professor_id, professor_password, professor_name, professor_position, department_no)
+		values
+		(#{id},#{password},#{name},#{position},#{departmentNo})
+	</insert>
+
+	<select id="getProfessorById" parameterType="string" resultType="com.sample.school.vo.professor">
+		select professor_id, professor_name, professor_password, professor_position, department_no
+		from sample_school_professors
+		where professor_id = #{value}
+	</select>
+</mapper>
