@@ -7,5 +7,6 @@
 		2. 홈페이지를 재요청하는 URL을 응답으로 보낸다.
 	*/
 	
+	session.removeAttribute("LOGINED_USER");
 	response.sendRedirect("/sample-school/index.jsp");
 %>

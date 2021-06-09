@@ -15,9 +15,6 @@
 	<%@ include file="common/header.jsp" %>
 	<%
 		String fail = request.getParameter("fail");
-		if("blank".equals(fail)){
-			
-		}
 	%>
 	<main>
 		<div class="row mb-3">
@@ -27,10 +24,43 @@
 				</div>
 			</div>
 		</div>
+		<%
+			if("blank".equals(fail)){
+		%>
+		<div class="row mb-3">
+			<div class="col-6">
+				<div class="alert alert-danger">아이디 혹은 비밀번호가 누락되었습니다.</div>
+			</div>
+		</div>
+		<%
+			}
+		%>
+		<%
+			if("invalid".equals(fail)){
+		%>
+		<div class="row mb-3">
+			<div class="col-6">
+				<div class="alert alert-danger">사용자 정보가 존재하지 않습니다.</div>
+			</div>
+		</div>
+		<%
+			}
+		%>
+		<%
+			if("password".equals(fail)){
+		%>
+		<div class="row mb-3">
+			<div class="col-6">
+				<div class="alert alert-danger">비밀번호가 일치하지 않습니다.</div>
+			</div>
+		</div>
+		<%
+			}
+		%>
 		<div class="row mb-3">
 			<div class="col-6">
 				<div class="border p-2 bg-light">
-					<form method="post" action="login.jps">
+					<form method="post" action="login.jsp">
 						<div class="mb-3">
 							<label class="form-label">아이디</label>
 							<input type="text" class="form-control" name="userid" />

@@ -1,6 +1,7 @@
+<%@page import="com.sample.school.vo.LoginUser"%>
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 <%
-	
+	LoginUser loginedUser = (LoginUser) session.getAttribute("LOGINED_USER");
 %>
 <header class="my-3">
  	<nav class="navbar navbar-expand-md navbar-dark bg-dark">
@@ -33,20 +34,29 @@
             				<li><a class="dropdown-item" href="/sample-school/student/courses.jsp">개설과정 조회</a></li>
             				<li><a class="dropdown-item" href="/sample-school/student/myList.jsp">수강신청내역 조회</a></li>
             				<li><hr class="dropdown-divider"></li>
-            				<li><a class="dropdown-item" href="/sample-school/student/registerForm.jsp">학생회원 가입</a></li>
+            				<li><a class="dropdown-item <%="studentRegisterform".equals(navItem)?"active":"" %>" href="/sample-school/student/registerForm.jsp">학생회원 가입</a></li>
           				</ul>
         			</li>
         		</ul>
         		<ul class="navbar-nav">
+        			<%
+          				if(loginedUser == null){
+          			%>
           			<li class="nav-item">
             			<a class="nav-link <%="loginform".equals(navItem) ? "active" : "" %>" href="/sample-school/loginForm.jsp">로그인</a>
           			</li>
+          			<%
+          				}else{
+          			%>
           			<li class="nav-item">
-            			<a class="nav-link" href="/sample-school/student/info.jsp">홍길동</a>
+            			<a class="nav-link" href="/sample-school/student/info.jsp"><%=loginedUser.getName() %></a>
           			</li>
           			<li class="nav-item">
             			<a class="nav-link" href="/sample-school/logout.jsp">로그아웃</a>
           			</li>
+          			<%
+          				}
+          			%>
         		</ul>
       		</div>
 		</div>

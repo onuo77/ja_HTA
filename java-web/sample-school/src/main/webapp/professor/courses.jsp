@@ -17,6 +17,8 @@
 		3. 로그인정보에서 교수번호를 조회한다.
 		4. 조회된 교수번호의 교수가 개설한 모든 과정정보를 조회해서 출력한다.
 	*/
+	
+	
 %>
 <div class="container">
 	<%@ include file="../common/header.jsp" %>

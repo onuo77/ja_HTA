@@ -23,8 +23,9 @@ public class ProfessorDao {
 	 * @param professor 교수정보
 	 */
 	public void insertProfessor(Professor professor) {
-		SqlSession session = sqlSessionFactory.openSession();
+		SqlSession session = sqlSessionFactory.openSession(true);
 		session.insert("insertProfessor", professor);
+		session.close();
 	}
 	
 	/**
@@ -34,7 +35,8 @@ public class ProfessorDao {
 	 */
 	public Professor getProfessorById(String professorId) {
 		SqlSession session = sqlSessionFactory.openSession();
-		Professor professor = session.selectOne(professorId);
+		Professor professor = session.selectOne("getProfessorById",professorId);
+		session.close();
 		return professor;
 	}
 }

@@ -1,3 +1,6 @@
+<%@page import="com.sample.school.vo.Department"%>
+<%@page import="java.util.List"%>
+<%@page import="com.sample.school.dao.DepartmentDao"%>
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 <!doctype html>
 <html lang="ko">
@@ -14,6 +17,9 @@
 	*/
 %>
 <div class="container">
+	<% 
+		String navItem = "studentRegisterform";
+	%>
 	<%@ include file="../common/header.jsp" %>
 	<main>
 		<div class="row mb-3">
@@ -26,7 +32,7 @@
 		<div class="row mb-3">
 			<div class="col-12">
 				<div class="border p-2 bg-light">
-					<form method="post" action="login.jps">
+					<form method="post" action="register.jsp">
 						<div class="mb-3">
 							<label class="form-label">아이디</label>
 							<input type="text" class="form-control" name="userid" />
@@ -42,15 +48,16 @@
 						<div class="mb-3">
 							<label class="form-label">학과</label>
 							<select class="form-control" name="departmentNo">
-								<option value="20000000"> 전기공학과</option>
-								<option value="20000000"> 전기공학과</option>
-								<option value="20000000"> 전기공학과</option>
-								<option value="20000000"> 전기공학과</option>
-								<option value="20000000"> 전기공학과</option>
-								<option value="20000000"> 전기공학과</option>
-								<option value="20000000"> 전기공학과</option>
-								<option value="20000000"> 전기공학과</option>
-								<option value="20000000"> 전기공학과</option>
+							<%
+								DepartmentDao departmentDao = DepartmentDao.getInstance();
+								List<Department> departments = departmentDao.getAllDepartments();
+								
+								for(Department dept : departments){
+							%>
+								<option value="<%=dept.getNo() %>"> <%=dept.getName() %></option>
+							<%
+								}
+							%>
 							</select>
 						</div>
 						<div class="mb-3">

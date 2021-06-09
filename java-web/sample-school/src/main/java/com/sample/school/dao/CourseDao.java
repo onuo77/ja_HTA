@@ -2,6 +2,7 @@ package com.sample.school.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
 import com.sample.school.dto.CourseDto;
@@ -25,7 +26,9 @@ public class CourseDao {
 	 * @param course 신규 개설과정 정보
 	 */
 	public void insertCourse(Course course) {
-		
+		SqlSession session = sqlSessionFactory.openSession(true);
+		session.insert("insertCourse", course);
+		session.close();
 	}
 	
 	/**
@@ -34,7 +37,10 @@ public class CourseDao {
 	 * @return 개설과정정보
 	 */
 	public CourseDto getCourseByNo(int courseNo) {
-		return null;
+		SqlSession session = sqlSessionFactory.openSession();
+		CourseDto courseDto = session.selectOne("getCourseByNo", courseNo);
+		session.close();
+		return courseDto;
 	}
 	
 	/**
@@ -42,7 +48,9 @@ public class CourseDao {
 	 * @param course 변경된 정보가 포함된 개설과정정보
 	 */
 	public void updateCourse(Course course) {
-		
+		SqlSession session = sqlSessionFactory.openSession(true);
+		session.update("updateCourse", course);
+		session.close();
 	}
 	
 	/**
@@ -51,7 +59,10 @@ public class CourseDao {
 	 * @return 개설과정목록
 	 */
 	public List<CourseDto> getCoursesByDepartmentNo(int departmentNo) {
-		return null;
+		SqlSession session = sqlSessionFactory.openSession();
+		List<CourseDto> CourseDto = session.selectList("getCoursesByDepartmentNo",departmentNo);
+		session.close();
+		return CourseDto;
 	}
 	
 	/**
@@ -60,6 +71,9 @@ public class CourseDao {
 	 * @return 개설과정목록
 	 */
 	public List<CourseDto> getCoursesByProfessorId(String professorId) {
-		return null;
+		SqlSession session = sqlSessionFactory.openSession();
+		List<CourseDto> CourseDto = session.selectList("getCoursesByProfessorId",professorId);
+		session.close();
+		return CourseDto;
 	}
 }

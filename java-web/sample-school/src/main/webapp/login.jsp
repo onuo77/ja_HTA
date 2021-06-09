@@ -1,3 +1,4 @@
+<%@page import="org.apache.commons.codec.digest.DigestUtils"%>
 <%@page import="com.sample.school.vo.Professor"%>
 <%@page import="com.sample.school.dao.ProfessorDao"%>
 <%@page import="com.sample.school.vo.Student"%>
@@ -31,34 +32,51 @@
 		return;
 	}
 
+	String sha256Password = DigestUtils.sha256Hex(password);
+
 	if("student".equals(userType)){
 		StudentDao studentDao = StudentDao.getInstance();
 		Student student = studentDao.getStudentById(userId);
 		
-		LoginUser loginUser = new LoginUser();
-		if(userId.equals(student.getId())){
-			loginUser.setId(userId);
-			loginUser.setName(student.getName());
-			loginUser.setUserType("student");
-			loginUser.setDepartmentNo(student.getDepartmentNo());
-			
-			session.setAttribute("LOGINED_USER", loginUser);
+		if(student == null) {
+			response.sendRedirect("loginForm.jsp?fail=invalid");
+			return;				
 		}
+		if(!sha256Password.equals(student.getPassword())){
+			response.sendRedirect("loginForm.jsp?fail=password");
+			return;		
+		}
+
+		LoginUser savedUser = new LoginUser();
+		savedUser.setId(userId);
+		savedUser.setName(student.getName());
+		savedUser.setUserType("student");
+		savedUser.setDepartmentNo(student.getDepartmentNo());
+		
+		session.setAttribute("LOGINED_USER", savedUser);	
 		
 	}else if("professor".equals(userType)){
 		ProfessorDao professorDao = ProfessorDao.getInstance();
 		Professor professor = professorDao.getProfessorById(userId);
-		if(userId.equals(professor.getId())){
-			LoginUser loginUser = new LoginUser();
-			loginUser.setId(userId);
-			loginUser.setName(professor.getName());
-			loginUser.setUserType("professor");
-			loginUser.setDepartmentNo(professor.getDepartmentNo());
-			
-			session.setAttribute("LOGINED_USER", loginUser);
+		
+		if(professor == null) {
+			response.sendRedirect("loginForm.jsp?fail=invalid");
+			return;				
 		}
+		if(!sha256Password.equals(professor.getPassword())){
+			response.sendRedirect("loginForm.jsp?fail=password");
+			return;		
+		}
+		
+		LoginUser savedUser = new LoginUser();
+		savedUser.setId(userId);
+		savedUser.setName(professor.getName());
+		savedUser.setUserType("professor");
+		savedUser.setDepartmentNo(professor.getDepartmentNo());
+		
+		session.setAttribute("LOGINED_USER", savedUser);	
 	}
 	
-	
+
 	response.sendRedirect("/sample-school/index.jsp");
 %>
