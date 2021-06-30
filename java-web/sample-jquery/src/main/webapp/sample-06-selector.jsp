@@ -44,21 +44,21 @@ $('div').css({border:"1px solid black", margin:"10px", padding:"10px", backgroun
 
 	//:first, :last, :first-child, :last-child, :nth-child(n) 활용
 	//p1만 선택하는 선택자
-	$('#box-1 p:first').css('color', 'red');
+	$('p:first').css('color', 'red');
 	//p14만 선택하는 선택자
-	$('#box-2 div:last p:last-child').css('color', 'green');
+	$('p:last').css('color', 'green');
 	//p1,p5,p9,p12를 선택하는 선택자
 	$('p:first-child').css('background-color', 'yellow');
 	//p4,p11,p14를 선택하는 선택자
-	$('p:last-child').css('border', '1px solid black');
+	$('p:last-child').css('border', '1px solid blue');
 	//p3, p7, p11, p14를 선택하는 선택자
 	$('p:nth-child(3)').css('text-decoration','underline');
 
 	//:eq(n), :lt(n), :gt(n) 활용
 	//p2만 선택하는 선택자
-	$("#box-1 p:eq(1)").css('font-style', 'italic');
+	$("p:eq(1)").css('font-style', 'italic');
 	//p1, p2를 선택하는 선택자
-	$("#box-1 p:lt(2)").css('font-size', '50px');
+	$("p:lt(2)").css('font-size', '30px');
 	//p3, p4를 선택하는 선택자
 	$("#box-1 p:gt(1)").css('font-size', '8px');
 
@@ -66,9 +66,11 @@ $('div').css({border:"1px solid black", margin:"10px", padding:"10px", backgroun
 	//p9, p12를 선택하는 선택자
 	$(".inner-box p:first-child").css('font-weight', 'bold');
 	//p9만 선택하는 선택자
-	$("#box-2 div:first p:first-child").css('border', '3px solid red');
+	//$(".inner-box:eq(0) p:first").css('border', '3px solid red');
+	$(".inner-box p:first").css('border', '3px solid red');
 	//p3, p7를 선택하는 선택자
-	$("#box-1 p:eq(2), #box-2 p:eq(2)").css('border', '2px solid maroon');
+	$(".container > div > p:nth-child(3)").css('border', '2px solid maroon');
+	//$("#box-1 > p:eq(2), #box-2 > p:eq(2)").css('border', '2px solid maroon');
 </script>
 </body>
 </html>
