@@ -1,0 +1,27 @@
+package com.sample.di.demo2;
+
+import com.sample.di.demo1.BookDao;
+import com.sample.di.demo1.CustomerDao;
+import com.sample.di.demo1.OrderDao;
+
+public class OrderService {
+
+	OrderDao orderDao;
+	BookDao bookDao;
+	CustomerDao customerDao;
+	
+	//주문하기
+	public void order() {
+		//새로운 주문정보 저장		<-- OrderDao insertOrder()
+		//책의 재고 변경			<-- BookDao updateBook()
+		//고객의 포인트 변경		<-- CustomerDao updateCustomer()
+	}
+	
+	//주문취소하기
+	public void cancel() {
+		//주문정보 취소			<-- OrderDao cancleOrder()
+		//책의 재고 변경			<-- BookDao updateBook()
+		//고객의 포인트 변경		<-- CustomerDao updateCustomer()
+		
+	}
+}

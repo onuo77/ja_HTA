@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+    <fullyQualifiedTypeName name="com.sample.di.demo2.OrderService"/>
+    <fullyQualifiedTypeName name="com.sample.di.demo1.CustomerDao"/>
+    <fullyQualifiedTypeName name="com.sample.di.demo2.CustomerService"/>
+    <fullyQualifiedTypeName name="java.lang.Appendable"/>
+    <fullyQualifiedTypeName name="com.sample.di.demo3.EventService"/>
+    <fullyQualifiedTypeName name="com.sample.di.demo3.SystemAlertService"/>
+    <fullyQualifiedTypeName name="javax.resource.spi.endpoint.MessageEndpoint"/>
+    <fullyQualifiedTypeName name="com.sample.di.demo3.MessageSender"/>
+    <fullyQualifiedTypeName name="org.springframework.context.ApplicationContext"/>
+    <fullyQualifiedTypeName name="org.springframework.context.support.ClassPathXmlApplicationContext"/>
+    <fullyQualifiedTypeName name="com.sample.di.demo4.CloudDatabaseService"/>
+</qualifiedTypeNameHistroy>

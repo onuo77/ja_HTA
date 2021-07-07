@@ -1,0 +1,5 @@
+package com.sample.di.demo4;
+
+public class CloudDatabaseService {
+
+}

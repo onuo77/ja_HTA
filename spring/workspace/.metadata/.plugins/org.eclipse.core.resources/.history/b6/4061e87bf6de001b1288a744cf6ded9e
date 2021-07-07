@@ -1,0 +1,6 @@
+# \uc8fc\uc11d\uc774\ub2f9
+# properties\ud30c\uc77c\uc740 name=value, name=value \uc124\uc815
+cloud.database.url=free.database.hta.co.kr
+cloud.database.username=hr
+cloud.database.password=zxcv1234qaz
+cloud.database.timeout=3000

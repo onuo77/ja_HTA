@@ -1,0 +1,9 @@
+package com.sample.di.demo3;
+
+public class EventService {
+
+	//이벤트 공지 기능
+	public void noticeEvent(String title, String content) {
+		
+	}
+}

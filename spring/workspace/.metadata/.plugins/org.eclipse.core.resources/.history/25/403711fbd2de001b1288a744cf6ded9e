@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- 
+		MessageSender 인터페이스를 구현한 SmsMessageSender를 스프링 컨테이너의 빈으로 등록하기
+	 -->
+	<bean id="sms" class="com.sample.di.demo3.SmsMessageSender"></bean>
+
+	<!-- 
+		이벤트 공지기능이 구현된 EventService를 스프링 컨테이너의 빈으로 등록하기 
+	-->
+	<bean id="eventService" class="com.sample.di.demo3.EventService">
+	</bean>
+</beans>

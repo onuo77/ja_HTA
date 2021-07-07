@@ -1,0 +1,8 @@
+package com.sample.di.demo3;
+
+public class SpringApp {
+
+	public static void main(String[] args) {
+		
+	}
+}

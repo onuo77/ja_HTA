@@ -1,0 +1,24 @@
+package com.sample.di.demo4;
+
+public class CloudDatabaseService {
+
+	private String url;
+	private String username;
+	private String password;
+	private int timeout;
+	
+	public void setUrl(String url) {
+		this.url = url;
+	}
+	public void setUsername(String username) {
+		this.username = username;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	public void setTimeout(int timeout) {
+		this.timeout = timeout;
+	}
+	
+	
+}

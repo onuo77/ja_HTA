@@ -1,0 +1,16 @@
+package com.sample.di.demo2;
+
+public class OrderService {
+
+	//주문하기
+	public void order() {
+		//새로운 주문정보 저장
+		//상품의 재고 변경
+		//고객의 포인트 변경
+	}
+	
+	//주문취소하기
+	public void cancel() {
+		
+	}
+}
