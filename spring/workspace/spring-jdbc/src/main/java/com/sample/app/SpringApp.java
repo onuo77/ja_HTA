@@ -1,5 +1,7 @@
 package com.sample.app;
 
+import java.util.List;
+
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -13,13 +15,18 @@ public class SpringApp {
 		
 		UserDao userDao = context.getBean(UserDao.class);
 		
-		User user = new User();
-		user.setId("hong1234");
-		user.setPassword("zxcv1234");
-		user.setName("홍길동");
-		user.setEmail("hong1234@naver.com");
-		user.setPhone("010-1111-1111");
+		List<User> users = userDao.getAllUsers();
+		for(User user : users) {
+			System.out.println(user.getId() + ", " + user.getName());
+		}
 		
-		userDao.insertUser(user);
+//		User user = new User();
+//		user.setId("hong1234");
+//		user.setPassword("zxcv1234");
+//		user.setName("홍길동");
+//		user.setEmail("hong1234@naver.com");
+//		user.setPhone("010-1111-1111");
+//		
+//		userDao.insertUser(user);
 	}
 }
