@@ -50,10 +50,10 @@ public class UserService{
 		//신규 사용자 정보 저장
 		userMapper.insertUser(user);
 		
-		int i = 10;
-		if(i == 10) {
-			throw new RuntimeException("예외 강제 발생");
-		}
+//		int i = 10;
+//		if(i == 10) {
+//			throw new RuntimeException("예외 강제 발생");
+//		}
 		
 		//신규 가입한 사용자에게 기본 포인트 지급
 		user = userMapper.getUserInfoById(user.getId());

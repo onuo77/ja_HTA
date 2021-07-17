@@ -11,7 +11,7 @@ public class SpringApp {
 
 	public static void main(String[] args) {
 		
-		ApplicationContext context = new ClassPathXmlApplicationContext("spring/context.xml");
+		ApplicationContext context = new ClassPathXmlApplicationContext("spring/context-tx-aop.xml");
 		
 		UserService userService = context.getBean(UserService.class);
 		
