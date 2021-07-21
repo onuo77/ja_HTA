@@ -9,6 +9,7 @@
 <title>샘플 애플리케이션</title>
 </head>
 <body>
+<c:set var="menu" value="login"></c:set>
 <%@ include file="common/nav.jsp" %>
 <div class="container my-3">
 	<main>
@@ -22,7 +23,7 @@
 				<div class="row mb-3">
 					<div class="col">
 						<div class="border p-2 bg-light">
-							<form id="form-register" action="register" novalidate="novalidate">
+							<form id="form-login" method="post" action="login" novalidate="novalidate">
 								<div class="mb-3">
 									<label class="form-label">아이디</label>
 									<input type="text" class="form-control" id="user-id" name="id" />
@@ -32,7 +33,7 @@
 									<input type="password" class="form-control" id="user-password" name="password" />
 								</div>
 								<div class="mb-3 text-end">
-									<button type="submit" class="btn btn-primary">회원가입</button>
+									<button type="submit" class="btn btn-primary">로그인</button>
 								</div>
 							</form>
 						</div>
@@ -112,7 +113,25 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>
-
+$(function(){
+	//입력값 유효성 체크해서 아이디와 비밀번호가 전부 값이 입력되어 있을 때만 폼 입력값이 서버로 제출되게 하기
+	$("#form-login").submit(function(){
+		var userId = $.trim($('#user-id').val());
+		if(!userId){
+			alert("아이디는 필수입력값입니다.");
+			$("#user-id").focus();
+			return false;
+		}
+		var password = $.trim($('#user-password').val());
+		if(!password){
+			alert("비밀번호는 필수입력값입니다.");
+			$("#user-password").focus();
+			return false;
+		}
+		
+		return true;
+	})
+})
 </script>
 </body>
 </html>

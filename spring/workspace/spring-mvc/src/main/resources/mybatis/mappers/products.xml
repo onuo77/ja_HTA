@@ -24,4 +24,22 @@
       order by product_no desc
 	</select>
    
+   	<select id="getProductByNo" parameterType="int" resultType="com.sample.vo.Product">
+      select
+         product_no no,
+         product_name name,
+         product_maker maker,
+         product_category category,
+         product_price price,
+         product_discount_price discountPrice,
+         product_stock stock,
+         product_sold_out soldOut,
+         product_review_cnt reviewCnt,
+         product_created_date createdDate
+      from
+         sample_products
+      where
+      	 product_no = #{value}
+      order by product_no desc
+   	</select>
 </mapper>

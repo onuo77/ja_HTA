@@ -18,5 +18,5 @@ public class Product {
 	private int stock;
 	private String soldOut;
 	private int reviewCnt;
-	private Date cratedDate;
+	private Date createdDate;
 }

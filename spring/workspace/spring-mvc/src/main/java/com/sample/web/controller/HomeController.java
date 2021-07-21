@@ -8,10 +8,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.sample.service.UserService;
 import com.sample.vo.User;
 import com.sample.web.form.UserResisterForm;
+import com.sample.web.utils.SessionUtils;
 
 /*
  * @Controller
@@ -155,6 +157,29 @@ public class HomeController {
 		logger.info("회원정보 등록 요청을 처리함");
 		logger.debug("register() 종료됨");		
 		
+		return "redirect:home";
+	}
+	
+	@GetMapping("/login")
+	public String loginform() {
+		return "loginform";
+	}
+	
+	@PostMapping("/login")
+	public String login(@RequestParam("id") String userId,
+				@RequestParam("password") String userPassword) {
+		logger.debug("login() 실행됨");
+		logger.info("로그인하는 사용자의 아이디: " + userId);
+		logger.info("로그인하는 사용자의 비밀번호: " + userPassword);
+		userService.login(userId, userPassword);
+		logger.debug("login() 종료됨");
+		
+		return "redirect:home";
+	}
+	
+	@GetMapping("/logout")
+	public String logout() {
+		SessionUtils.destroySession();
 		return "redirect:home";
 	}
 }

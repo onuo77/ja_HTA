@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.sample.dao.UserDao;
 import com.sample.vo.User;
+import com.sample.web.utils.SessionUtils;
 
 @Service
 public class UserServiceImpl implements UserService{
@@ -32,5 +33,25 @@ public class UserServiceImpl implements UserService{
 		
 		//사용자 정보를 저장한다.
 		userDao.insertUser(user);
+	}
+	
+	@Override
+	public void login(String id, String password) {
+		//사용자정보 조회 - null인지 체크, 삭제된 사용자인지 체크, 비밀번호가 일치하는지 체크
+		User user = userDao.getUserById(id);
+		if(user == null) {
+			throw new RuntimeException("아이디 혹은 비밀번호가 유효하지 않습니다.");
+		}
+		if(!"ACTIVE".equalsIgnoreCase(user.getStatus())){ //항상 상수를 먼저씀 ignorecase는 대소문자 구분안함
+			throw new RuntimeException("삭제 혹은 이용중지된 사용자입니다.");
+		}
+		
+		String secretPassword = DigestUtils.sha256Hex(password);
+		if(!user.getPassword().equals(secretPassword)) {
+			throw new RuntimeException("아이디 혹은 비밀번호가 유효하지 않습니다.");
+		}
+		
+		//HttpSession객체 사용자 인증이 완료된 사용자 정보를 속성으로 추가한다.
+		SessionUtils.addAttribute("LOGINED_USER", user);
 	}
 }

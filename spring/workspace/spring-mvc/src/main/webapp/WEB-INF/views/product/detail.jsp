@@ -9,6 +9,7 @@
 <title>샘플 애플리케이션</title>
 </head>
 <body>
+<c:set var="menu" value="product"></c:set>
 <%@ include file="../common/nav.jsp" %>
 <div class="container my-3">
 	<main>
@@ -18,7 +19,7 @@
 			</div>
 		</div>
 		<div class="row mb-3">
-			<div class="col">
+			<div class="col-8">
 				<div class="border p-2 bg-light">
 					<table class="table">
 						<colgroup>
@@ -30,40 +31,68 @@
 						<tbody>
 							<tr>
 								<th>번호</th>
-								<td>100</td>
+								<td>${product.no }</td>
 								<th>등록일자</th>
-								<td>2021년 7월 14일</td>
-							</tr>
-							<tr>
-								<th>상품명</th>
-								<td>에이든 아쿠아텍스 패브릭 3인용 소파</td>
-								<th>리뷰갯수</th>
-								<td>1,000 개</td>
+								<td><fmt:formatDate value="${product.createdDate}" pattern="yyyy년 M월 d일 E요일"/></td>
 							</tr>
 							<tr>
 								<th>카테고리</th>
-								<td>가구</td>
+								<td>${product.category }</td>
+								<th>리뷰갯수</th>
+								<td>${product.reviewCnt }개</td>
+							</tr>
+							<tr>
+								<th>상품명</th>
+								<td colspan="3">${product.name }</td>
+							</tr>
+							<tr>
 								<th>제조사</th>
-								<td>중앙 가구침대 주식회사</td>
+								<td colspan="3">${product.maker }</td>
 							</tr>
 							<tr>
 								<th>가격</th>
-								<td>1,000,000 원</td>
+								<td><fmt:formatNumber value="${product.price }"/> 원</td>
 								<th>할인가격</th>
-								<td><strong class="text-danger">890,000</strong> 원</td>
+								<td><strong class="text-danger"><fmt:formatNumber value="${product.discountPrice }"/></strong> 원</td>
 							</tr>
 							<tr>
 								<th>재고량</th>
-								<td>100 개</td>
+								<td>${product.stock } 개</td>
 								<th>판매여부</th>
-								<td><strong class="text-success">판매중</strong></td>
+								<td><strong class="text-success">${product.soldOut eq 'N' ? "판매중" : "품절"}</strong></td>
 							</tr>
 						</tbody>
 					</table>
 				</div>
 			</div>
 			<div class="col">
-			
+				<div class="card">
+					<div class="card-body">
+						<h5 class="card-title">${product.name }</h5>
+						<div class="border-top py-2 mb-3">
+							<table class="table">
+								<tbody>
+									<tr>
+										<th>할인 가격</th>
+										<td><strong class="text-danger"><fmt:formatNumber value="${product.discountPrice }"/></strong> 원</td>
+									</tr>
+									<tr>
+										<th>적립포인트</th>
+										<td><fmt:formatNumber value="${product.discountPrice*0.01 }" pattern="##,###"/> 점</td>
+									</tr>
+									<tr>
+										<th>배송비</th>
+										<td>무료</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<div class="text-end">
+							<a href="addCart?no=${product.no }" class="btn btn-outline-primary ${empty LOGINED_USER ? 'disabled' : '' }">장바구니 담기</a>
+							<a href="order?no=${product.no }" class="btn btn-success ${empty LOGINED_USER ? 'disabled' : '' }">바로구매</a>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 		

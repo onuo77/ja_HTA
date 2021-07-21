@@ -16,7 +16,14 @@
 		<div class="container-fluid py-3">
 			<h1 class="display-5 fw-bold">샘플 애플리케이션</h1>
 			<p class="col-md-8 fs-4">회원가입, 로그인, 상품리스트, 상품상세, 리뷰쓰기, 장바구니담기, 구매하기 연습용 샘플 애플리케이션 입니다.</p>
-			<a class="btn btn-primary btn-lg" href="login">로그인</a>
+			<c:choose>
+				<c:when test="${empty LOGINED_USER }">
+					<a class="btn btn-primary btn-lg" href="login">로그인</a>
+				</c:when>
+				<c:otherwise>
+					<p class="col-8 fs-1"><strong style="color:yellow;">${LOGINED_USER.name}</strong>님 사용자 인증이 완료되었습니다.</p>
+				</c:otherwise>
+			</c:choose>
 		</div>
 	</div>
 </div>
